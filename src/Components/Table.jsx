@@ -29,21 +29,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-function createData(id, name, price, h1, h24, d7, h24_volume, mkt_cap) {
-  return { id, name, price, h1, h24, d7, h24_volume, mkt_cap };
-}
-
-const rows = [
-  createData(1, "BTC", 58000, 10, 24, 100, 22424, 121313),
-  createData(2, "Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData(3, "Eclair", 262, 16.0, 24, 6.0),
-  createData(4, "Cupcake", 305, 3.7, 67, 4.3),
-  createData(5, "Solana", 356, 16.0, 49, 3.9),
-  createData(6, "Bitcoin", 356, 16.0, 49, 3.9),
-  createData(7, "Etherium", 356, 16.0, 49, 3.9),
-  createData(8, "dog", 356, 16.0, 49, 3.9),
-];
-
 const url =
   "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=1h%2C24h%2C7d";
 
@@ -60,13 +45,6 @@ function CustomizedTables() {
       .catch((error) => console.log(error));
   }, []);
 
-  // const filteredCoins = coins.filter(
-  //   (coin) =>
-  //     coin.name.toLowerCase().includes(search.toLowerCase()) ||
-  //     coin.symbol.toLowerCase().includes(search.toLocaleLowerCase()) ||
-  //     coin.current_price.toString().includes(search.toLocaleString())
-  // );
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -74,6 +52,7 @@ function CustomizedTables() {
           <TableRow>
             <StyledTableCell>#</StyledTableCell>
             <StyledTableCell>Coin</StyledTableCell>
+            <StyledTableCell></StyledTableCell>
             <StyledTableCell align="right">Price</StyledTableCell>
             <StyledTableCell align="right">1h</StyledTableCell>
             <StyledTableCell align="right">24h</StyledTableCell>
@@ -83,18 +62,50 @@ function CustomizedTables() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell align="left">{row.id}</StyledTableCell>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
+          {coins.map((coin) => (
+            <StyledTableRow key={coin.id}>
+              <StyledTableCell align="left">
+                {coin.market_cap_rank}
               </StyledTableCell>
-              <StyledTableCell align="right">{row.price}</StyledTableCell>
-              <StyledTableCell align="right">{row.h1}</StyledTableCell>
-              <StyledTableCell align="right">{row.h24}</StyledTableCell>
-              <StyledTableCell align="right">{row.d7}</StyledTableCell>
-              <StyledTableCell align="right">{row.h24_volume}</StyledTableCell>
-              <StyledTableCell align="right">{row.mkt_cap}</StyledTableCell>
+              <StyledTableCell
+                className="img-symbol"
+                component="th"
+                scope="row"
+              >
+                <div className="coin-symbol">
+                  <img src={coin.image} alt={coin.name} />
+                  <p className="coin-name"> {coin.name}</p>
+                </div>
+              </StyledTableCell>
+              <StyledTableCell align="left">
+                {coin.symbol.toUpperCase()}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                ${coin.current_price.toLocaleString()}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {coin.price_change_percentage_1h_in_currency.toFixed(2) < 0 ? (
+                  <p className="red">
+                    {coin.price_change_percentage_1h_in_currency.toFixed(2)}%
+                  </p>
+                ) : (
+                  <p className="green">
+                    {coin.price_change_percentage_1h_in_currency.toFixed(2)}%
+                  </p>
+                )}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {coin.price_change_percentage_24h_in_currency.toFixed(2)}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {coin.price_change_percentage_7d_in_currency.toFixed(2)}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                ${coin.total_volume.toLocaleString()}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                ${coin.market_cap.toLocaleString()}
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
