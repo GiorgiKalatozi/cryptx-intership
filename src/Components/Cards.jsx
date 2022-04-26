@@ -55,21 +55,21 @@ function OutlinedCard({ coins }) {
   return (
     <Box className="cards" sx={{ minWidth: 50 }}>
       <Card
-        className="card"
+        style={{ borderRadius: "20px" }}
         sx={{ width: 300, height: 100 }}
         variant="outlined"
       >
         {card}
       </Card>
       <Card
-        className="card"
+        style={{ borderRadius: "20px" }}
         sx={{ width: 300, height: 100 }}
         variant="outlined"
       >
         {card2}
       </Card>
       <Card
-        className="card"
+        style={{ borderRadius: "20px" }}
         sx={{ width: 300, height: 100 }}
         variant="outlined"
       >

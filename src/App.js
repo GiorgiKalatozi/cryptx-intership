@@ -12,6 +12,7 @@ const url =
 function App() {
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState("");
+  const [priceTo, setPriceTo] = useState("");
 
   useEffect(() => {
     axios
@@ -27,16 +28,18 @@ function App() {
     (coin) =>
       coin.name.toLowerCase().includes(search.toLowerCase()) ||
       coin.symbol.toLowerCase().includes(search.toLocaleLowerCase()) ||
-      coin.current_price.toString().includes(search.toLocaleString())
+      coin.current_price >= parseInt(search).toFixed(2)
+    //  &&
+    //   coin.current_price <= parseInt(priceTo).toFixed(2))
   );
 
   return (
-    <div className="">
+    <>
       <Heading />
       <Cards coins={filteredCoins} />
-      <Filters coins={filteredCoins} setSearch={setSearch} />
+      <Filters coins={coins} setPriceTo={setPriceTo} setSearch={setSearch} />
       <Table coins={filteredCoins} setCoins={setCoins} />
-    </div>
+    </>
   );
 }
 
