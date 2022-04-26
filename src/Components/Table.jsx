@@ -11,8 +11,10 @@ import axios from "axios";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
+    backgroundColor: theme.palette.common.white,
+    color: theme.palette.common.black,
+    fontWeight: 700,
+    fontSize: 14,
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -95,10 +97,26 @@ function CustomizedTables() {
                 )}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {coin.price_change_percentage_24h_in_currency.toFixed(2)}
+                {coin.price_change_percentage_24h_in_currency.toFixed(2) < 0 ? (
+                  <p className="red">
+                    {coin.price_change_percentage_24h_in_currency.toFixed(2)}%
+                  </p>
+                ) : (
+                  <p className="green">
+                    {coin.price_change_percentage_24h_in_currency.toFixed(2)}%
+                  </p>
+                )}
               </StyledTableCell>
               <StyledTableCell align="right">
-                {coin.price_change_percentage_7d_in_currency.toFixed(2)}
+                {coin.price_change_percentage_7d_in_currency.toFixed(2) < 0 ? (
+                  <p className="red">
+                    {coin.price_change_percentage_7d_in_currency.toFixed(2)}%
+                  </p>
+                ) : (
+                  <p className="green">
+                    {coin.price_change_percentage_7d_in_currency.toFixed(2)}%
+                  </p>
+                )}
               </StyledTableCell>
               <StyledTableCell align="right">
                 ${coin.total_volume.toLocaleString()}
