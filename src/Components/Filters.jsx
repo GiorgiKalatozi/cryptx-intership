@@ -1,8 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-function Filters({ setSearch, setPriceTo }) {
+function Filters({ setSearch, setPrice, search, price, coins }) {
+  const [name, setName] = useState([]);
+
+  useEffect(() => {
+    setName(coins.name);
+  }, [coins.name]);
+
   const handleChange = (e) => {
     e.preventDefault();
     const reg = /^([^0-9$%]*)$/;
@@ -14,19 +20,12 @@ function Filters({ setSearch, setPriceTo }) {
     e.preventDefault();
 
     setSearch(e.target.value);
-    // console.log(e.target.value);
-  };
-  const handleChangeTo = (e) => {
-    e.preventDefault();
-
-    setPriceTo(e.target.value);
-    console.log(e.target.value);
+    // setPrice(e.target.value);
   };
 
   const handleSort = (e) => {
     e.preventDefault();
   };
-
   return (
     <Box
       component="form"
@@ -59,8 +58,9 @@ function Filters({ setSearch, setPriceTo }) {
         label="Price to"
         type="number"
         // value={name}
-        onChange={handleChangeTo}
+        onChange={handleChangeFrom}
       />
+      <button onClick={handleSort}> Fight</button>
     </Box>
   );
 }
