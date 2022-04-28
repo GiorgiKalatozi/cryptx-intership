@@ -1,5 +1,5 @@
 img {
-  height: 40px;
+  height: 35px;
   margin-right: 10px;
   width: auto;
 }
@@ -19,6 +19,7 @@ img {
 .coin-name {
   font-weight: 600;
 }
+
 .red {
   color: #f00606;
   font-weight: 600;
@@ -26,7 +27,7 @@ img {
 
 .green {
   color: #11d811;
-  font-weight: 600;
+  font-weight: bolder;
 }
 
 h1 {
